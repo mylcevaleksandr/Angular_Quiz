@@ -1,0 +1,36 @@
+.main {
+  padding-top: 190px;
+  padding-bottom: 231px;
+
+  .container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+
+    .main__content {
+      max-width: 588px;
+
+      .main__content_description {
+        margin-top: 40px;
+        font-size: 20px
+      }
+
+      .main__content_button {
+        margin-top: 60px
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1220px) {
+  .myContainer {
+    padding-left: 10px;
+    padding-right: 10px
+  }
+}
