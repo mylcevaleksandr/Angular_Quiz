@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="form__button">
-        <button class="btn" id="process" [disabled]="loginForm.invalid">Перейти к выбору теста</button>
+        <button class="btn" id="process" [disabled]="loginForm.invalid" (click)="login()">Перейти к выбору теста</button>
       </div>
       <div class="form__link">Нет аккаунта <a routerLink="/signup">Зарегистрироваться</a></div>
     </div>
