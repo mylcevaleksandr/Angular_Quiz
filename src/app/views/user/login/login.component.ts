@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
               throw new Error(data.message ? data.message : 'Login failed');
             }
 
-            this.router.navigate(['/'])
+            this.router.navigate(['/choice'])
           },
           error: (error: HttpErrorResponse) => {
             // this.router.navigate(['/'])

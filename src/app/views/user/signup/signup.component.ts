@@ -49,7 +49,7 @@ export class SignupComponent implements OnInit {
                       this.snackbar.open('Ошибка авторизации')
                       throw new Error(data.message ? data.message : 'Login failed');
                     }
-                    this.router.navigate(['/'])
+                    this.router.navigate(['/choice'])
                   },
                   error: (error: HttpErrorResponse) => {
                     console.log(error)
@@ -60,8 +60,6 @@ export class SignupComponent implements OnInit {
             }
           },
           error: (error: HttpErrorResponse) => {
-            // this.router.navigate(['/'])
-            console.log(error)
             this.snackbar.open('Ошибка регистрации')
             throw new Error(error.error.message)
           }
