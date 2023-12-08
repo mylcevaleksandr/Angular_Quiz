@@ -2,9 +2,10 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {LoginResponseType} from "../../../types/login-response.type";
-import {Observable, Subject} from "rxjs";
+import {Observable, Subject, tap} from "rxjs";
 import {UserInfoType} from "../../../types/user-info.type";
 import {LogoutResponseType} from "../../../types/logout-response.type";
+import {SignupResponseType} from "../../../types/signup-response.type";
 
 @Injectable({
   providedIn: 'root'
@@ -25,12 +26,32 @@ export class AuthService {
       email,
       password
     })
+      .pipe(
+        tap((data: LoginResponseType) => {
+          if (data.fullName && data.userId && data.accessToken && data.refreshToken) {
+            this.setUserInfo({
+              fullName: data.fullName,
+              userId: data.userId
+            });
+            this.setTokens(data.accessToken, data.refreshToken);
+          }
+        })
+      )
   }
 
   logout(): Observable<LogoutResponseType> {
     const refreshToken: string | null = localStorage.getItem(this.refreshTokenKey);
 
     return this.http.post<LogoutResponseType>(environment.apiHost + 'logout', {refreshToken})
+  }
+
+  signup(name: string, lastName: string, email: string, password: string): Observable<SignupResponseType> {
+    return this.http.post<SignupResponseType>(environment.apiHost + 'signup', {
+      name,
+      lastName,
+      email,
+      password
+    })
   }
 
   public getLoggedIn(): boolean {
@@ -55,7 +76,7 @@ export class AuthService {
     localStorage.setItem(this.userInfoKey, JSON.stringify(info));
   }
 
-  public removeUserInfo(){
+  public removeUserInfo() {
     localStorage.removeItem(this.userInfoKey);
   }
 

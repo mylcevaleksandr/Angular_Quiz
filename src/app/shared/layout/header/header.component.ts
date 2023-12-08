@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
   userInfo: UserInfoType | null = null
 
   constructor(private authService: AuthService, private router: Router, private snackbar: MatSnackBar) {
+
     if (this.authService.getLoggedIn()) {
       this.userInfo = this.authService.getUserInfo()
     }
@@ -22,7 +23,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.authService.isLogged$
-      .subscribe(isLoggedIn => {
+      .subscribe((isLoggedIn:boolean ):void=> {
         this.userInfo = isLoggedIn ? this.authService.getUserInfo() : null
       })
   }

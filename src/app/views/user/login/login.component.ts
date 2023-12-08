@@ -34,13 +34,8 @@ export class LoginComponent implements OnInit {
               this.snackbar.open('Ошибка авторизации')
               throw new Error(data.message ? data.message : 'Login failed');
             }
-            this.authService.setUserInfo({
-              fullName: data.fullName,
-              userId: data.userId
-              // userEmail: data
-            });
-            this.authService.setTokens(data.accessToken, data.refreshToken);
-            this.router.navigate(['/choice'])
+
+            this.router.navigate(['/'])
           },
           error: (error: HttpErrorResponse) => {
             // this.router.navigate(['/'])
