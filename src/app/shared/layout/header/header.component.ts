@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.authService.isLogged$
-      .subscribe((isLoggedIn:boolean ):void=> {
+      .subscribe((isLoggedIn: boolean): void => {
         this.userInfo = isLoggedIn ? this.authService.getUserInfo() : null
       })
   }
@@ -39,11 +39,12 @@ export class HeaderComponent implements OnInit {
             this.router.navigate(['/'])
           } else {
             this.snackbar.open('Ошибка выхода из системы')
-
           }
         },
         error: (err: HttpErrorResponse) => {
-          this.snackbar.open('Ошибка выхода из системы')
+          this.snackbar.open('Ошибка выхода из системы backend')
+          this.router.navigate(['/'])
+          this.authService.removeTokens()
         }
       })
   }

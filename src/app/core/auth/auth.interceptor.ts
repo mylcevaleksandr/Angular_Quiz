@@ -33,6 +33,7 @@ export class AuthInterceptor implements HttpInterceptor {
     return this.authService.refresh()
       .pipe(
         switchMap((result: RefreshResponseType) => {
+          console.log(result)
           if (result && !result.error && result.accessToken && result.refreshToken) {
             this.authService.setTokens(result.accessToken, result.refreshToken);
             const authReq = req.clone({

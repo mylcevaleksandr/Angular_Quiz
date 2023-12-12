@@ -20,6 +20,9 @@ export class AuthService {
 
   constructor(private http: HttpClient) {
     this.isLogged = !!localStorage.getItem(this.accessTokenKey)
+
+    if (this.isLogged) {
+    }
   }
 
   login(email: string, password: string): Observable<LoginResponseType> {
@@ -98,6 +101,7 @@ export class AuthService {
 
   public refresh(): Observable<RefreshResponseType> {
     const refreshToken: string | null = this.getTokens().refreshToken;
-    return this.http.post<RefreshResponseType>(environment.apiHost+'refresh',{refreshToken})
+    return this.http.post<RefreshResponseType>(environment.apiHost + 'refresh', {refreshToken})
+    console.log('success')
   }
 }

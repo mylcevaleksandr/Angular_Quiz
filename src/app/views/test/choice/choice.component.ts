@@ -44,7 +44,6 @@ export class ChoiceComponent implements OnInit {
               }
             })
         }
-        console.log(result)
       });
   }
 

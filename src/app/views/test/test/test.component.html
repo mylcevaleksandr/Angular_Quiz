@@ -1,1 +1,47 @@
-<p>test works!</p>
+<section class="test">
+  <div class="container">
+    <div class="test__prev-title">
+      Тест №1. “JavaScript: Начальный уровень”
+    </div>
+    <div class="test__progressBar" id="progressBar">
+      <div class="test__progressBar_item active"><div class="test__progressBar_item-circle"></div><div class="test__progressBar_item-text">Вопрос1</div></div><div class="test__progressBar_item"><div class="test__progressBar_item-circle"></div><div class="test__progressBar_item-text">Вопрос2</div></div><div class="test__progressBar_item"><div class="test__progressBar_item-circle"></div><div class="test__progressBar_item-text">Вопрос3</div></div><div class="test__progressBar_item"><div class="test__progressBar_item-circle"></div><div class="test__progressBar_item-text">Вопрос4</div></div><div class="test__progressBar_item"><div class="test__progressBar_item-circle"></div><div class="test__progressBar_item-text">Вопрос5</div></div><div class="test__progressBar_item"><div class="test__progressBar_item-circle"></div><div class="test__progressBar_item-text">Вопрос6</div></div></div>    <div class="test__question">
+      <div class="test__question-title" id="question-title">
+        <span>  Вопрос 2:</span> Тут должен быть текст вопроса?
+      </div>
+      <div class="test__question_options" id="options">
+        <div class="test__question_options-option">
+          <input class="option-answer" id="answer-1" type="radio" name="answer" value="1">
+          <label for="answer-1">info ("Hi")</label>
+        </div>
+        <div class="test__question_options-option">
+          <input class="option-answer" id="answer-2" type="radio" name="answer" value="2">
+          <label for="answer-2">alert ("Hi")</label>
+        </div>
+        <div class="test__question_options-option">
+          <input class="option-answer" id="answer-3" type="radio" name="answer" value="3">
+          <label for="answer-3">Нет верных вариантов</label>
+        </div>
+        <div class="test__question_options-option">
+          <input class="option-answer" id="answer-4" type="radio" name="answer" value="4">
+          <label for="answer-4">new alert ("Hi")</label>
+        </div>
+      </div>
+    </div>
+    <div class="test__actions">
+      <div class="test__actions-previous">
+        <button class="btn button-transparent" disabled id="prev">Назад</button>
+      </div>
+      <div class="test__actions_time">
+        <div class="test__actions_time-text">Осталось времени:</div>
+        <div class="test__actions_time-clock" id="timer">59</div>
+      </div>
+      <div class="test__actions-next">
+        <button class="btn button-transparent" disabled id="next">Дальше</button>
+      </div>
+    </div>
+    <div class="test__pass-question">
+      <a href="javascript:void(0)" id="pass">Пропустить вопрос <img src="/assets/images/small-arrow.png"
+                                                                    alt="small-arrow" height="15" width="8"></a>
+    </div>
+  </div>
+</section>
