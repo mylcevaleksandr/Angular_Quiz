@@ -37,7 +37,6 @@ export class ChoiceComponent implements OnInit {
                     if (foundItem) {
                       quiz.result = foundItem.score + '/' + foundItem.total;
                     }
-                    console.log(quiz)
                     return quiz
                   });
                 }

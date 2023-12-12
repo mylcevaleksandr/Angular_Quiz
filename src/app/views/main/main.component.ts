@@ -11,7 +11,6 @@ export class MainComponent {
   }
 
   redirectPage() {
-    console.log(1)
     this.router.navigate(['/choice'])
   }
 }

@@ -35,11 +35,6 @@
         margin-top: 10px
       }
 
-      //
-      //&:not(:first-child) {
-      //  margin-left: 130px;
-      //}
-
       &:not(:last-child)::before {
         content: "";
         z-index: -1;
