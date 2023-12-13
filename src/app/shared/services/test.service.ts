@@ -6,6 +6,8 @@ import {QuizListType} from "../../../types/quiz-list.type";
 import {TestResultType} from "../../../types/test-result.type";
 import {DefaultResponseType} from "../../../types/default-response.type";
 import {QuizType} from "../../../types/quiz.type";
+import {UserResultType} from "../../../types/user-result.type";
+import {PassTestType} from "../../../types/pass-test.type";
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +29,17 @@ export class TestService {
     return this.http.get<DefaultResponseType | QuizType>(environment.apiHost + 'tests/' + id)
   }
 
+  passQuiz(id: number | string, userId: number | string, userResult: UserResultType[]): Observable<DefaultResponseType | PassTestType> {
+    return this.http.post<DefaultResponseType | PassTestType>(environment.apiHost + 'tests/' + id + '/pass',
+      {
+        userId: userId,
+        results: userResult
+      })
+  }
+
+  getResult(id: number | string, userId: number | string): Observable<DefaultResponseType | PassTestType> {
+    return this.http.get<DefaultResponseType | PassTestType>(environment.apiHost + 'tests/' + id + '/result?userId=' + userId)
+  }
 
 }
 

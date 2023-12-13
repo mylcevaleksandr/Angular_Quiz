@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {TestService} from "../../../shared/services/test.service";
 import {DefaultResponseType} from "../../../../types/default-response.type";
 import {QuizType} from "../../../../types/quiz.type";
 import {ActionTestType} from "../../../../types/action-test.type";
 import {UserResultType} from "../../../../types/user-result.type";
+import {AuthService} from "../../../core/auth/auth.service";
 
 @Component({
   selector: 'app-test',
@@ -20,7 +21,7 @@ export class TestComponent implements OnInit {
   readonly userResult: UserResultType[] = [];
   actionTestType = ActionTestType
 
-  constructor(private activatedRoute: ActivatedRoute, private testService: TestService) {
+  constructor(private activatedRoute: ActivatedRoute, private testService: TestService, private authService: AuthService, private router: Router) {
   }
 
   get activeQuestion() {
@@ -36,7 +37,6 @@ export class TestComponent implements OnInit {
               if ((result as DefaultResponseType).error !== undefined) {
                 throw new Error((result as DefaultResponseType).message);
               }
-              console.log(result)
               this.quiz = result as QuizType;
               this.startQuiz();
             }
@@ -46,9 +46,6 @@ export class TestComponent implements OnInit {
   }
 
   startQuiz(): void {
-    this.prepareProgressBar();
-    this.showQuestion();
-
     this.interval = window.setInterval(() => {
       this.timerSeconds--;
       if (this.timerSeconds === 0) {
@@ -58,12 +55,6 @@ export class TestComponent implements OnInit {
     }, 1000);
   }
 
-  prepareProgressBar(): void {
-
-  }
-
-  showQuestion(): void {
-  }
 
   public move(action: ActionTestType): void {
 
@@ -83,6 +74,11 @@ export class TestComponent implements OnInit {
 
 
     if (action === ActionTestType.next || action === ActionTestType.pass) {
+      if (this.currentQuestionIndex === this.quiz.questions.length) {
+        clearInterval(this.interval);
+        this.complete();
+        return;
+      }
       this.currentQuestionIndex++;
     } else {
       this.currentQuestionIndex--;
@@ -95,29 +91,27 @@ export class TestComponent implements OnInit {
     if (currentResult) {
       this.chosenAnswerId = currentResult.chosenAnswerId
     }
-
-    if (this.currentQuestionIndex > this.quiz.questions.length) {
-      clearInterval(this.interval);
-      this.complete();
-      return;
-    }
-    // if (this.progressBarElement) {
-    //   Array.from(this.progressBarElement.children).forEach((item: Element, index: number) => {
-    //     const currentItemIndex: number = index + 1;
-    //     item.classList.remove("complete");
-    //     item.classList.remove("active");
-    //     if (currentItemIndex === this.currentQuestionIndex) {
-    //       item.classList.add("active");
-    //     } else if (currentItemIndex < this.currentQuestionIndex) {
-    //       item.classList.add("complete");
-    //     }
-    //   });
-    // }
   }
 
 
   complete(): void {
-    console.log(`1`)
+    console.log(this.userResult)
+    const userInfo = this.authService.getUserInfo()
+    if (userInfo) {
+      this.testService.passQuiz(this.quiz.id, userInfo.userId, this.userResult)
+        .subscribe(result => {
+          if (result) {
+            if ((result as DefaultResponseType).error !== undefined) {
+              throw new Error((result as DefaultResponseType).message);
+            }
+            sessionStorage.setItem('quizId', this.quiz.id.toString())
+            // sessionStorage.setItem("score", (result as PassTestType).score.toString());
+            // sessionStorage.setItem("total", (result as PassTestType).total.toString());
+            // sessionStorage.setItem("answers", answersIdString.join(","));
+            this.router.navigate(['result'])
+          }
+        })
+    }
   }
 
 }

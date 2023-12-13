@@ -2,29 +2,10 @@
   <div class="container">
     <div class="test__prev-title">{{quiz.name}}</div>
     <div class="test__progressBar" id="progressBar">
-      <div class="test__progressBar_item active">
+      <div class="test__progressBar_item active" *ngFor="let item of this.quiz.questions; let i = index;"
+           [class.active]="currentQuestionIndex===(i+1)" [class.complete]="currentQuestionIndex>(i+1)">
         <div class="test__progressBar_item-circle"></div>
-        <div class="test__progressBar_item-text">Вопрос1</div>
-      </div>
-      <div class="test__progressBar_item">
-        <div class="test__progressBar_item-circle"></div>
-        <div class="test__progressBar_item-text">Вопрос2</div>
-      </div>
-      <div class="test__progressBar_item">
-        <div class="test__progressBar_item-circle"></div>
-        <div class="test__progressBar_item-text">Вопрос3</div>
-      </div>
-      <div class="test__progressBar_item">
-        <div class="test__progressBar_item-circle"></div>
-        <div class="test__progressBar_item-text">Вопрос4</div>
-      </div>
-      <div class="test__progressBar_item">
-        <div class="test__progressBar_item-circle"></div>
-        <div class="test__progressBar_item-text">Вопрос5</div>
-      </div>
-      <div class="test__progressBar_item">
-        <div class="test__progressBar_item-circle"></div>
-        <div class="test__progressBar_item-text">Вопрос6</div>
+        <div class="test__progressBar_item-text">Вопрос{{i + 1}}</div>
       </div>
     </div>
     <div class="test__question">
@@ -58,7 +39,7 @@
     </div>
     <div class="test__pass-question">
       <a href="javascript:void(0)" id="pass" (click)="move(actionTestType.pass)">Пропустить вопрос <img
-        src="/assets/images/small-arrow.png"
+        ngSrc="/assets/images/small-arrow.png"
         alt="small-arrow" height="15" width="8"></a>
     </div>
   </div>

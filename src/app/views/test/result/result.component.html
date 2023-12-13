@@ -1,1 +1,11 @@
-<p>result works!</p>
+<section class="result">
+  <div class="container">
+    <div class="result__image">
+      <img ngSrc="/assets/images/question-marks.png" alt="question marks" height="408" width="1200">
+    </div>
+    <div class="result__title big_title">Ура! Ты прошёл тест! <span> Твой результат:</span></div>
+    <div class="result__score" id="result-score">{{result}}</div>
+    <a href="#" class="result__title-link" id="link"><span>Посмотреть правильные ответы</span><img
+      ngSrc="/assets/images/link-arrow.png" alt="стрелка" height="15" width="8"></a>
+  </div>
+</section>
